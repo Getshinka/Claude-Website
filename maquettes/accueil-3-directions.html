@@ -10,9 +10,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Funnel+Display:wght@400..800&family=Funnel+Sans:wght@400..700&family=Geist+Mono:wght@400;500&family=Onest:wght@400..700&family=Unbounded:wght@400..800&display=swap">
 <style>
-/* Layout: three self-contained home-page directions (header, hero, specs, Shinka Lab), switched by a neutral presenter bar. Each direction commits to one look. */
+/* Layout: three complete DTC home pages for SK-01 (announce, header, hero, buy box, why, compare, lot check, Shinka Lab, founder, reviews, FAQ, final CTA, footer), switched by a neutral presenter bar. Each direction commits to one look. */
 :root {
-  /* A. Transparence radicale: cold mineral white, night-blue ink, berry kept for the product */
+  /* A. Transparence radicale */
   --a-mineral: #EDF0F4;
   --a-paper: #FFFFFF;
   --a-ink: #0F1B33;
@@ -20,34 +20,24 @@
   --a-berry: #B4173F;
   --a-line: #D2D9E3;
   --a-pass: #17704F;
-  --a-lab: #0B1328;
-  --a-lab-fg: #E6ECF7;
-  --a-lab-soft: #A3B3D1;
-  --a-lab-dim: #2E416B;
-  --a-lab-accent: #FF5C80;
-
-  /* B. Matière vivante: deep berry ground, translucent gel, pink glow */
+  /* B. Matière vivante */
   --b-deep: #34091F;
+  --b-deep-2: #3F0D29;
   --b-wine: #5A0F34;
   --b-gel: #E0335A;
   --b-glow: #FF9CB2;
   --b-milk: #FFF1F5;
   --b-soft: #E6B9C9;
   --b-line: #5E1D3F;
-  --b-lab: #1B0615;
-  --b-lab-dim: #62264A;
-
-  /* C. Le geste du champion: berry red ground, white type, true black lab */
+  --b-night: #1B0615;
+  /* C. Le geste du champion */
   --c-red: #B3123E;
   --c-red-deep: #7E0A2B;
   --c-white: #FFFFFF;
   --c-black: #000000;
   --c-grey: #565656;
+  --c-fog: #F3F3F3;
   --c-line: #DEDEDE;
-  --c-lab-soft: #BDBDBD;
-  --c-lab-dim: #333333;
-  --c-lab-accent: #FF4467;
-
   /* Presenter chrome (outside the designs) */
   --p-bg: #16161A;
   --p-fg: #F4F4F6;
@@ -65,49 +55,78 @@
   --ease-io: cubic-bezier(.65, 0, .35, 1);
   color-scheme: light;
 }
-
 html[data-dir="a"] { --page: var(--a-mineral); color-scheme: light; }
 html[data-dir="b"] { --page: var(--b-deep); color-scheme: dark; }
-html[data-dir="c"] { --page: var(--c-red); color-scheme: light; }
+html[data-dir="c"] { --page: var(--c-white); color-scheme: light; }
 html { background: var(--page, var(--a-mineral)); }
 body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0; -webkit-font-smoothing: antialiased; }
 
-/* Per-direction semantic tokens */
+/* ---------- Direction tokens ---------- */
 .dir-a {
-  --bg: var(--a-mineral); --fg: var(--a-ink); --muted: var(--a-ink-soft); --accent: var(--a-berry);
-  --line: var(--a-line); --surface: var(--a-paper); --btn-bg: var(--a-ink); --btn-fg: var(--a-paper);
+  --top-bg: var(--a-mineral);
+  --bg1: var(--a-paper); --bg2: var(--a-mineral); --fg: var(--a-ink); --muted: var(--a-ink-soft); --accent: var(--a-berry);
+  --line: var(--a-line); --card: var(--a-paper); --card-line: var(--a-line); --surface: var(--a-paper);
+  --btn-bg: var(--a-ink); --btn-fg: var(--a-paper); --sel-bg: #F4F6FA; --sel-line: var(--a-ink);
+  --tag-bg: var(--a-berry); --tag-fg: var(--a-paper); --inv-bg: var(--a-ink); --inv-fg: var(--a-paper); --g-bg: var(--a-mineral);
+  --final-bg: var(--a-mineral); --final-fg: var(--a-ink); --final-soft: var(--a-ink-soft); --final-btn-bg: var(--a-ink); --final-btn-fg: var(--a-paper);
+  --foot-bg: var(--a-ink); --foot-fg: var(--a-paper); --foot-soft: #A3B3D1; --foot-line: #26345A;
+  --ann-bg: var(--a-ink); --ann-fg: var(--a-paper);
+  --sticky-bg: var(--a-ink); --sticky-fg: var(--a-paper); --sticky-btn-bg: var(--a-paper); --sticky-btn-fg: var(--a-ink);
+  --err: #B42318; --stripe: rgba(15, 27, 51, .05); --pass: var(--a-pass);
   --display: var(--f-a-display); --body: var(--f-a-body);
-  --lab-bg: var(--a-lab); --lab-fg: var(--a-lab-fg); --lab-soft: var(--a-lab-soft); --lab-dim: var(--a-lab-dim); --lab-accent: var(--a-lab-accent);
+  --lab-bg: #0B1328; --lab-fg: #E6ECF7; --lab-soft: #A3B3D1; --lab-dim: #2E416B; --lab-accent: #FF5C80;
   --focus: var(--a-berry);
 }
 .dir-b {
-  --bg: var(--b-deep); --fg: var(--b-milk); --muted: var(--b-soft); --accent: var(--b-glow);
-  --line: var(--b-line); --surface: var(--b-wine); --btn-bg: var(--b-milk); --btn-fg: var(--b-deep);
+  --top-bg: var(--b-deep);
+  --bg1: var(--b-deep); --bg2: var(--b-deep-2); --fg: var(--b-milk); --muted: var(--b-soft); --accent: var(--b-glow);
+  --line: var(--b-line); --card: var(--b-wine); --card-line: #7A2A52; --surface: var(--b-wine);
+  --btn-bg: var(--b-milk); --btn-fg: var(--b-deep); --sel-bg: #6B1640; --sel-line: var(--b-glow);
+  --tag-bg: var(--b-glow); --tag-fg: var(--b-deep); --inv-bg: var(--b-milk); --inv-fg: var(--b-deep); --g-bg: var(--b-wine);
+  --final-bg: var(--b-wine); --final-fg: var(--b-milk); --final-soft: var(--b-soft); --final-btn-bg: var(--b-milk); --final-btn-fg: var(--b-deep);
+  --foot-bg: var(--b-night); --foot-fg: var(--b-milk); --foot-soft: var(--b-soft); --foot-line: #3A1330;
+  --ann-bg: var(--b-night); --ann-fg: var(--b-milk);
+  --sticky-bg: var(--b-milk); --sticky-fg: var(--b-deep); --sticky-btn-bg: var(--b-deep); --sticky-btn-fg: var(--b-milk);
+  --err: #FFB0A3; --stripe: rgba(255, 241, 245, .05); --pass: #8FE3BC;
   --display: var(--f-b-display); --body: var(--f-b-body);
-  --lab-bg: var(--b-lab); --lab-fg: var(--b-milk); --lab-soft: var(--b-soft); --lab-dim: var(--b-lab-dim); --lab-accent: var(--b-glow);
+  --lab-bg: var(--b-night); --lab-fg: var(--b-milk); --lab-soft: var(--b-soft); --lab-dim: #62264A; --lab-accent: var(--b-glow);
   --focus: var(--b-glow);
 }
 .dir-c {
-  --bg: var(--c-red); --fg: var(--c-white); --muted: var(--c-white); --accent: var(--c-white);
-  --line: var(--c-line); --surface: var(--c-white); --btn-bg: var(--c-white); --btn-fg: var(--c-red-deep);
+  --top-bg: var(--c-red);
+  --bg1: var(--c-white); --bg2: var(--c-fog); --fg: var(--c-black); --muted: var(--c-grey); --accent: var(--c-red);
+  --line: var(--c-line); --card: var(--c-white); --card-line: #D4D4D4; --surface: var(--c-white);
+  --btn-bg: var(--c-red); --btn-fg: var(--c-white); --sel-bg: #FFF4F6; --sel-line: var(--c-red);
+  --tag-bg: var(--c-red); --tag-fg: var(--c-white); --inv-bg: var(--c-black); --inv-fg: var(--c-white); --g-bg: var(--c-fog);
+  --final-bg: var(--c-red); --final-fg: var(--c-white); --final-soft: var(--c-white); --final-btn-bg: var(--c-white); --final-btn-fg: var(--c-red-deep);
+  --foot-bg: var(--c-black); --foot-fg: var(--c-white); --foot-soft: #BDBDBD; --foot-line: #2B2B2B;
+  --ann-bg: var(--c-black); --ann-fg: var(--c-white);
+  --sticky-bg: var(--c-black); --sticky-fg: var(--c-white); --sticky-btn-bg: var(--c-white); --sticky-btn-fg: var(--c-black);
+  --err: #B42318; --stripe: rgba(0, 0, 0, .05); --pass: #17704F;
   --display: var(--f-c); --body: var(--f-c);
-  --lab-bg: var(--c-black); --lab-fg: var(--c-white); --lab-soft: var(--c-lab-soft); --lab-dim: var(--c-lab-dim); --lab-accent: var(--c-lab-accent);
-  --focus: var(--c-white);
+  --lab-bg: var(--c-black); --lab-fg: var(--c-white); --lab-soft: #BDBDBD; --lab-dim: #333333; --lab-accent: #FF4467;
+  --focus: var(--c-red);
 }
+/* C's top band (announce + header + hero) runs on red */
+.dir-c .top { --fg: var(--c-white); --muted: var(--c-white); --accent: var(--c-white); --btn-bg: var(--c-white); --btn-fg: var(--c-red-deep); --focus: var(--c-white); }
 
-.dir { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 1rem; line-height: 1.55; }
+.dir { background: var(--bg1); color: var(--fg); font-family: var(--body); font-size: 1rem; line-height: 1.55; }
 .dir *, .dir *::before, .dir *::after { box-sizing: border-box; }
-:where(.dir) :where(h1, h2, h3, p, ul, ol, dl, dd, figure) { margin: 0; }
+:where(.dir) :where(h1, h2, h3, p, ul, ol, dl, dd, figure, fieldset) { margin: 0; }
 :where(.dir) :where(ul, ol) { padding: 0; list-style: none; }
 :where(.dir) a { color: inherit; }
 .dir :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
 .wrap { width: 100%; max-width: 1200px; margin-inline: auto; padding-inline: 20px; }
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-
+[tabindex="-1"]:focus { outline: none; }
 .skip { position: absolute; left: 12px; top: -60px; z-index: 50; background: var(--p-bg); color: var(--p-fg); padding: 10px 14px; border-radius: 8px; font: 500 14px/1 var(--f-a-body); }
 .skip:focus { top: 12px; }
 
-/* ---------- Header (shared markup) ---------- */
+.top { background: var(--top-bg); color: var(--fg); }
+.dir-b .top { background: radial-gradient(120% 90% at 78% 10%, var(--b-wine) 0%, var(--b-deep) 60%); }
+
+/* ---------- Announce + header ---------- */
+.announce { background: var(--ann-bg); color: var(--ann-fg); font-size: .88rem; text-align: center; padding: 9px 16px; }
 .site-head { position: relative; z-index: 5; }
 .head-row { display: flex; align-items: center; gap: 24px; min-height: 72px; }
 .logo { display: inline-flex; color: var(--fg); width: 118px; flex: none; }
@@ -117,17 +136,17 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
 .nav a { text-decoration: none; font-size: .95rem; font-weight: 500; opacity: .86; }
 .nav a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
 .head-actions { display: flex; align-items: center; gap: 16px; }
-.cart { text-decoration: none; font-size: .95rem; font-weight: 500; }
+.cart { text-decoration: none; font-size: .95rem; font-weight: 500; font-variant-numeric: tabular-nums; }
 .menu-btn { display: none; background: none; border: 1px solid currentColor; color: var(--fg); border-radius: 999px; padding: 8px 14px; font: 500 .9rem/1 var(--body); cursor: pointer; min-height: 40px; }
 
-.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 26px; border-radius: 999px; background: var(--btn-bg); color: var(--btn-fg); text-decoration: none; font-weight: 600; font-size: 1rem; border: 0; cursor: pointer; transition: transform .2s var(--ease-out), box-shadow .2s var(--ease-out); }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 26px; border-radius: 999px; background: var(--btn-bg); color: var(--btn-fg); text-decoration: none; font-weight: 600; font-size: 1rem; font-family: var(--body); border: 0; cursor: pointer; transition: transform .2s var(--ease-out); }
 .btn:hover { transform: translateY(-1px); }
 .btn:active { transform: scale(.98); }
 .btn-sm { min-height: 40px; padding: 0 18px; font-size: .92rem; }
 
 @media (max-width: 860px) {
   .nav { position: absolute; top: 100%; left: 20px; right: 20px; margin: 0; background: var(--surface); color: var(--fg); border-radius: 16px; padding: 8px; box-shadow: 0 18px 40px rgba(0,0,0,.18); display: none; }
-  .dir-c .nav { color: var(--c-black); }
+  .dir-c .nav { color: var(--c-black); background: var(--c-white); }
   .nav.open { display: block; }
   .nav ul { flex-direction: column; gap: 0; }
   .nav a { display: block; padding: 14px 12px; opacity: 1; }
@@ -135,24 +154,25 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
   .head-actions .btn-sm { display: none; }
 }
 
-/* ---------- Buy block (shared) ---------- */
-.buy { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+/* ---------- Hero CTA (shared) ---------- */
+.hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
 .price { display: grid; gap: 2px; }
-.p-main { font-size: 1.35rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.p-main { font-size: 1.2rem; font-weight: 700; font-variant-numeric: tabular-nums; }
 .p-sub { font-size: .92rem; color: var(--muted); }
+.hero-proof { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: .92rem; font-weight: 500; }
+.hero-proof li { display: flex; gap: 7px; align-items: center; }
+.hero-proof svg, .ticks svg { width: 16px; height: 16px; flex: none; color: var(--accent); }
 
 /* =========================================================
-   A. TRANSPARENCE RADICALE
+   A. HERO
    ========================================================= */
-.hero-a { padding-block: 40px 88px; }
+.hero-a { padding-block: 32px 88px; }
 .hero-a-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 56px; align-items: center; }
 .h-a { font-family: var(--display); font-weight: 700; font-size: clamp(2.6rem, 5.6vw, 4.9rem); line-height: .98; letter-spacing: -.035em; text-wrap: balance; }
 .h-a span { display: block; }
 .hero-a .lede { margin-top: 26px; max-width: 34em; font-size: 1.12rem; color: var(--muted); }
 .hero-a .lede strong { color: var(--fg); font-weight: 600; }
-.hero-a .buy { margin-top: 34px; }
-.link-a { display: inline-block; margin-top: 22px; font-weight: 600; text-underline-offset: 5px; }
-
+.hero-a .hero-cta { margin-top: 32px; }
 .hero-a-visual { position: relative; padding: 76px 0 0 0; }
 .gummy-a { position: absolute; right: -14px; top: 0; width: clamp(140px, 15vw, 188px); z-index: 2; filter: drop-shadow(0 26px 30px rgba(120, 12, 40, .28)); will-change: transform; }
 .lot-card { position: relative; overflow: hidden; background: var(--a-paper); border-radius: 20px; padding: 26px 26px 22px; box-shadow: 0 1px 0 var(--a-line), 0 30px 60px -30px rgba(15, 27, 51, .35); }
@@ -165,7 +185,7 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
 .lot-table td { padding: 13px 0; border-top: 1px solid var(--a-line); vertical-align: top; }
 .lot-table td:first-child { padding-right: 12px; }
 .lot-table .res { font-variant-numeric: tabular-nums; font-weight: 600; padding-right: 12px; }
-.lot-table .ok { white-space: nowrap; color: var(--a-pass); font-weight: 600; font-size: .88rem; }
+.ok { white-space: nowrap; color: var(--pass); font-weight: 600; font-size: .88rem; }
 .ok svg { width: 15px; height: 15px; vertical-align: -2px; margin-right: 5px; }
 .lot-foot { display: flex; gap: 16px; align-items: center; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--a-line); }
 .qr { width: 76px; height: 76px; flex: none; image-rendering: pixelated; }
@@ -177,21 +197,16 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
 @keyframes scan { 0% { transform: translateY(-101%); opacity: 1; } 85% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(0); opacity: 0; } }
 @keyframes rowOn { from { opacity: .28; } to { opacity: 1; } }
 
-.dir-a .specs { background: var(--a-paper); }
-
 /* =========================================================
-   B. MATIÈRE VIVANTE
+   B. HERO
    ========================================================= */
-.dir-b { background: radial-gradient(120% 80% at 75% 0%, var(--b-wine) 0%, var(--b-deep) 58%); }
 .hero-b { padding-block: 24px 80px; }
 .hero-b-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); grid-template-areas: "h m" "t m"; column-gap: 40px; align-items: center; }
-.h-b { grid-area: h; align-self: end; }
+.h-b { grid-area: h; align-self: end; font-family: var(--display); font-weight: 700; font-size: clamp(2.3rem, 5.2vw, 4.6rem); line-height: 1.02; letter-spacing: -.03em; text-wrap: balance; }
 .hero-b-text { grid-area: t; align-self: start; }
-.morph { grid-area: m; }
-.h-b { font-family: var(--display); font-weight: 700; font-size: clamp(2.3rem, 5.2vw, 4.6rem); line-height: 1.02; letter-spacing: -.03em; text-wrap: balance; }
 .hero-b .lede { margin-top: 24px; max-width: 32em; font-size: 1.12rem; color: var(--muted); }
-.hero-b .buy { margin-top: 32px; }
-.morph { position: relative; width: 100%; max-width: 560px; margin-inline: auto; }
+.hero-b .hero-cta { margin-top: 32px; }
+.morph { grid-area: m; position: relative; width: 100%; max-width: 560px; margin-inline: auto; }
 .morph-stage { position: relative; aspect-ratio: 1 / 1; width: 100%; max-width: 100%; }
 .morph-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .morph-gel { position: absolute; left: 12%; top: 15.2%; width: 76%; height: auto; opacity: 0; transition: opacity 1.1s ease; filter: drop-shadow(0 0 60px rgba(255, 92, 122, .35)); }
@@ -201,54 +216,128 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
 .morph-controls button[aria-pressed="true"] { background: var(--b-milk); color: var(--b-deep); }
 .morph-caption { text-align: center; margin-top: 12px; font-size: .86rem; color: var(--muted); min-height: 1.4em; }
 
-.dir-b .specs { background: transparent; border-top: 1px solid var(--b-line); }
-
 /* =========================================================
-   C. LE GESTE DU CHAMPION
+   C. HERO
    ========================================================= */
 .hero-c { padding-block: 28px 0; overflow: hidden; }
 .hero-c-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 40px; align-items: end; }
-.h-c { font-family: var(--f-c); font-weight: 850; font-size: clamp(3rem, 7.2vw, 6.4rem); line-height: .9; letter-spacing: -.01em; text-transform: none; }
+.h-c { font-family: var(--f-c); font-weight: 850; font-size: clamp(3rem, 7.2vw, 6.4rem); line-height: .9; letter-spacing: -.01em; }
 .h-c .l { display: block; font-stretch: 118%; }
 .h-c.run .l { animation: release 1.1s var(--ease-out) both; animation-delay: calc(.1s + var(--i) * .12s); }
 @keyframes release { from { font-stretch: 62%; opacity: .2; } to { font-stretch: 118%; opacity: 1; } }
-.hero-c .lede { margin-top: 26px; max-width: 32em; font-size: 1.1rem; font-stretch: 100%; }
-.hero-c .buy { margin-top: 30px; padding-bottom: 56px; }
-.dir-c .p-sub { color: var(--c-white); opacity: .92; }
+.hero-c .lede { margin-top: 26px; max-width: 32em; font-size: 1.1rem; }
+.hero-c .hero-cta { margin-top: 30px; }
+.hero-c .hero-proof { padding-bottom: 56px; }
+.hero-c .p-sub { opacity: .92; }
 .founder { position: relative; align-self: stretch; display: grid; grid-template-rows: 1fr auto; }
-.photo-slot { position: relative; min-height: 360px; border-radius: 22px 22px 0 0; background:
-  repeating-linear-gradient(135deg, rgba(255,255,255,.06) 0 2px, transparent 2px 14px), var(--c-red-deep);
-  display: grid; place-items: center; text-align: center; padding: 24px; }
+.photo-slot { position: relative; min-height: 360px; border-radius: 22px 22px 0 0; background: repeating-linear-gradient(135deg, rgba(255,255,255,.06) 0 2px, transparent 2px 14px), var(--c-red-deep); display: grid; place-items: center; text-align: center; padding: 24px; }
 .photo-slot span { font-weight: 600; font-size: .95rem; border: 1px dashed rgba(255,255,255,.6); border-radius: 999px; padding: 8px 16px; }
 .founder figcaption { background: var(--c-white); color: var(--c-black); padding: 22px 22px 26px; }
 .big5 { display: flex; align-items: center; gap: 16px; }
 .big5 .n { font-weight: 900; font-stretch: 125%; font-size: 5.2rem; line-height: .8; color: var(--c-red); font-variant-numeric: tabular-nums; }
-.big5 .t { font-weight: 700; font-size: 1.15rem; line-height: 1.15; font-stretch: 100%; max-width: 12em; }
+.big5 .t { font-weight: 700; font-size: 1.15rem; line-height: 1.15; max-width: 12em; }
 .founder ul { margin-top: 16px; display: grid; gap: 8px; font-size: .98rem; }
 .founder li { display: flex; gap: 10px; align-items: baseline; }
 .founder li::before { content: ""; width: 14px; height: 3px; background: var(--c-red); flex: none; transform: translateY(-4px); }
 .founder-name { margin-top: 14px; font-size: .88rem; color: var(--c-grey); }
 
-.dir-c .specs { background: var(--c-white); color: var(--c-black); --muted: var(--c-grey); --line: var(--c-line); }
+/* ---------- Sections (shared) ---------- */
+.sec { padding-block: 88px; background: var(--bg1); color: var(--fg); scroll-margin-top: 12px; }
+.sec.alt { background: var(--bg2); }
+.dir-b .sec { border-top: 1px solid var(--line); }
+.sec-head { display: grid; gap: 14px; max-width: 46rem; margin-bottom: 44px; }
+.sec-title { font-family: var(--display); font-weight: 700; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.02; letter-spacing: -.03em; text-wrap: balance; }
+.dir-b .sec-title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); letter-spacing: -.02em; }
+.dir-c .sec-title { font-weight: 850; font-stretch: 112%; letter-spacing: 0; }
+.sec-lead { font-size: 1.1rem; color: var(--muted); max-width: 36em; }
+.ticks { display: grid; gap: 8px; }
+.ticks li { display: flex; gap: 10px; align-items: center; }
 
-/* ---------- Specs (shared) ---------- */
-.specs { padding-block: 80px; }
-.specs-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 56px; align-items: start; }
-.specs-title { font-family: var(--display); font-weight: 700; font-size: clamp(1.9rem, 3.4vw, 2.8rem); line-height: 1.05; letter-spacing: -.025em; }
-.dir-b .specs-title { font-weight: 600; letter-spacing: -.02em; }
-.dir-c .specs-title { font-weight: 850; font-stretch: 112%; letter-spacing: 0; }
-.claim { margin-top: 22px; font-size: 1.08rem; max-width: 30em; }
-.claim-note { margin-top: 10px; font-size: .88rem; color: var(--muted); max-width: 32em; }
-.spec-list { display: grid; }
-.spec-list > div { display: grid; grid-template-columns: 9.5em minmax(0, 1fr); gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); }
-.spec-list > div:last-child { border-bottom: 1px solid var(--line); }
-.spec-list dt { color: var(--muted); font-size: .95rem; }
-.spec-list dd { font-weight: 600; }
-.dir-b .spec-list dt { color: var(--b-glow); }
-.dir-c .spec-list dt { color: var(--c-red); font-weight: 700; }
+/* Buy box */
+.buy-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; }
+.gallery { position: sticky; top: 20px; }
+.g-main { position: relative; aspect-ratio: 1 / 1; max-width: 100%; border-radius: 24px; background: var(--g-bg); display: grid; place-items: center; overflow: hidden; }
+.g-main svg { width: 60%; filter: drop-shadow(0 24px 30px rgba(90, 8, 32, .28)); }
+.g-tag { position: absolute; left: 16px; bottom: 14px; font-size: .8rem; color: var(--muted); }
+.g-thumbs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+.g-thumbs li { aspect-ratio: 1; max-width: 100%; border-radius: 14px; background: var(--g-bg); display: grid; place-items: center; font-size: .74rem; line-height: 1.2; color: var(--muted); text-align: center; padding: 6px; border: 2px solid transparent; }
+.g-thumbs li.on { border-color: var(--fg); }
+.g-thumbs svg { width: 62%; }
+.buy-title { font-family: var(--display); font-weight: 800; font-size: clamp(2.6rem, 4.6vw, 3.8rem); line-height: .95; letter-spacing: -.03em; }
+.dir-b .buy-title { font-weight: 700; }
+.dir-c .buy-title { font-weight: 900; font-stretch: 118%; letter-spacing: 0; }
+.buy-sub { margin-top: 10px; color: var(--muted); font-size: 1.05rem; }
+.buy-panel .ticks { margin-top: 18px; grid-template-columns: repeat(2, minmax(0, 1fr)); font-size: .95rem; font-weight: 500; }
+.plans { border: 0; padding: 0; margin-top: 28px; display: grid; gap: 12px; min-width: 0; }
+.plans legend { font-weight: 600; margin-bottom: 12px; padding: 0; }
+.plan { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 2px 14px; align-items: center; padding: 16px 18px; border: 1.5px solid var(--card-line); border-radius: 16px; background: var(--card); cursor: pointer; transition: border-color .2s ease, background .2s ease; }
+.plan input { appearance: none; -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--muted); margin: 0; grid-row: 1 / span 2; cursor: pointer; }
+.plan input:checked { border-color: var(--sel-line); background: radial-gradient(circle, var(--sel-line) 0 5px, transparent 5.5px); }
+.plan input:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.plan:has(input:checked) { border-color: var(--sel-line); background: var(--sel-bg); box-shadow: 0 0 0 1px var(--sel-line); }
+.plan-name { font-weight: 600; }
+.plan-detail { grid-column: 2; font-size: .88rem; color: var(--muted); }
+.plan-price { grid-row: 1 / span 2; grid-column: 3; text-align: right; font-weight: 700; font-size: 1.08rem; font-variant-numeric: tabular-nums; }
+.plan-price small { display: block; font-weight: 500; font-size: .82rem; color: var(--muted); }
+.plan-tag { position: absolute; top: -10px; right: 16px; font-size: .75rem; font-weight: 600; background: var(--tag-bg); color: var(--tag-fg); border-radius: 999px; padding: 3px 10px; }
+.add { width: 100%; margin-top: 18px; min-height: 58px; font-size: 1.05rem; gap: .3em; }
+.price-note { margin-top: 10px; font-size: .82rem; color: var(--muted); }
+.buy-panel .reassure { margin-top: 18px; font-size: .92rem; grid-template-columns: minmax(0, 1fr); font-weight: 400; }
+.acc { margin-top: 24px; border-top: 1px solid var(--line); }
+.acc details { border-bottom: 1px solid var(--line); }
+.acc summary { cursor: pointer; list-style: none; padding: 16px 0; font-weight: 600; display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 48px; }
+.acc summary::-webkit-details-marker { display: none; }
+.acc summary::after { content: "+"; font-size: 1.4rem; font-weight: 400; line-height: 1; transition: transform .25s var(--ease-out); flex: none; }
+.acc details[open] > summary::after { transform: rotate(45deg); }
+.acc-body { padding: 0 0 18px; color: var(--muted); display: grid; gap: 10px; font-size: .96rem; max-width: 40em; }
 
-/* ---------- Shinka Lab (shared, dark in every direction) ---------- */
-.lab { background: var(--lab-bg); color: var(--lab-fg); padding-block: 96px 104px; overflow: hidden; }
+/* Why */
+.why-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+.why-item { display: grid; gap: 12px; align-content: start; }
+.why-ico { width: 44px; height: 44px; color: var(--accent); }
+.why-item h3 { font-family: var(--display); font-weight: 700; font-size: 1.3rem; line-height: 1.1; letter-spacing: -.015em; }
+.dir-b .why-item h3 { font-size: 1.12rem; letter-spacing: -.01em; }
+.dir-c .why-item h3 { font-weight: 850; font-stretch: 110%; letter-spacing: 0; }
+.why-item p { color: var(--muted); font-size: .98rem; }
+
+/* Compare */
+.cmp-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.cmp { width: 100%; min-width: 600px; border-collapse: separate; border-spacing: 0; font-size: .98rem; }
+.cmp th, .cmp td { padding: 16px 18px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+.cmp thead th { font-weight: 600; color: var(--muted); font-size: .92rem; border-bottom-color: transparent; }
+.cmp tbody th { font-weight: 500; color: var(--fg); width: 28%; }
+.cmp td { color: var(--muted); }
+.cmp .sk { background: var(--inv-bg); color: var(--inv-fg); font-weight: 600; border-bottom-color: color-mix(in srgb, var(--inv-fg) 18%, transparent); }
+.cmp thead .sk { border-radius: 16px 16px 0 0; font-family: var(--display); font-size: 1.1rem; color: var(--inv-fg); }
+.cmp tbody tr:last-child .sk { border-radius: 0 0 16px 16px; border-bottom-color: transparent; }
+
+/* Lot check */
+.tr-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; }
+.tr-steps { display: grid; gap: 24px; margin-top: 8px; }
+.tr-steps li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: start; }
+.tr-n { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--fg); display: grid; place-items: center; font-weight: 700; font-family: var(--display); }
+.tr-steps h3 { font-size: 1.1rem; font-weight: 600; }
+.tr-steps p { color: var(--muted); font-size: .96rem; margin-top: 2px; }
+.lookup { background: var(--card); border: 1px solid var(--card-line); border-radius: 22px; padding: 26px; }
+.lookup form { display: grid; gap: 10px; }
+.lookup label { font-weight: 600; }
+.lookup-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.lookup input { flex: 1 1 180px; min-width: 0; min-height: 52px; border-radius: 12px; border: 1.5px solid var(--card-line); background: var(--bg1); color: var(--fg); padding: 0 16px; font: 500 1rem/1 var(--f-mono); letter-spacing: .04em; }
+.lookup input[aria-invalid="true"] { border-color: var(--err); }
+.lookup-help { font-size: .85rem; color: var(--muted); }
+.lookup-err { color: var(--err); font-size: .92rem; min-height: 1.3em; }
+.result { margin-top: 8px; border-top: 1px solid var(--line); padding-top: 18px; }
+.result-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.result-id { font-family: var(--display); font-weight: 700; font-size: 1.3rem; font-variant-numeric: tabular-nums; }
+.result-flag { font-size: .78rem; font-weight: 600; color: var(--accent); border: 1px solid currentColor; border-radius: 999px; padding: 2px 10px; }
+.result table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: .94rem; }
+.result td { padding: 11px 0; border-top: 1px solid var(--line); vertical-align: top; }
+.result td + td { text-align: right; padding-left: 12px; }
+.result .ok { display: block; font-size: .82rem; margin-top: 2px; }
+.result-note { margin-top: 12px; font-size: .82rem; color: var(--muted); }
+
+/* Shinka Lab */
+.lab { background: var(--lab-bg); color: var(--lab-fg); padding-block: 96px 104px; overflow: hidden; scroll-margin-top: 12px; }
 .lab-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 56px; align-items: end; }
 .lab-title { font-family: var(--display); font-weight: 800; font-size: clamp(3rem, 8vw, 6.6rem); line-height: .9; letter-spacing: -.04em; }
 .dir-b .lab-title { font-weight: 700; letter-spacing: -.035em; }
@@ -259,7 +348,7 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
 .seq-frame { position: relative; border-radius: 18px; overflow: hidden; background: color-mix(in srgb, var(--lab-bg) 88%, var(--lab-fg)); }
 .seq { display: block; width: 100%; height: clamp(220px, 30vw, 340px); }
 .seq-fig figcaption { margin-top: 12px; font-size: .86rem; color: var(--lab-soft); }
-.steps { margin-top: 64px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; counter-reset: step; }
+.steps { margin-top: 64px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; }
 .step { position: relative; padding-top: 26px; }
 .step::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--lab-dim); }
 .step::after { content: ""; position: absolute; top: 0; left: 0; height: 2px; width: 100%; background: var(--lab-accent); transform-origin: left; transform: scaleX(1); }
@@ -269,30 +358,84 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
 .step h3 { margin-top: 10px; font-family: var(--display); font-weight: 700; font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1.05; letter-spacing: -.02em; }
 .dir-c .step h3 { font-weight: 850; font-stretch: 112%; letter-spacing: 0; }
 .step p { margin-top: 14px; color: var(--lab-soft); max-width: 30em; }
-
 .reveal { margin-top: 88px; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 32px 56px; align-items: center; padding: 44px; border-radius: 24px; border: 1px solid var(--lab-dim); background: color-mix(in srgb, var(--lab-bg) 92%, var(--lab-accent)); }
 .reveal-title { font-family: var(--display); font-weight: 700; font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.08; letter-spacing: -.025em; text-wrap: balance; }
 .dir-c .reveal-title { font-weight: 850; letter-spacing: 0; }
 .reveal-sub { margin-top: 14px; color: var(--lab-soft); }
 .bio { margin-top: 22px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 .bio-label { font-size: .88rem; color: var(--lab-soft); }
-.scramble { font-family: var(--f-mono); font-weight: 500; font-size: 1.25rem; letter-spacing: .18em; color: var(--lab-accent); background: color-mix(in srgb, var(--lab-accent) 12%, transparent); padding: 8px 14px; border-radius: 10px; font-variant-numeric: tabular-nums; }
+.scramble { font-family: var(--f-mono); font-weight: 500; font-size: 1.25rem; letter-spacing: .18em; color: var(--lab-accent); background: color-mix(in srgb, var(--lab-accent) 12%, transparent); padding: 8px 14px; border-radius: 10px; }
 .notify { display: grid; gap: 10px; }
 .notify label { font-weight: 600; }
 .notify-row { display: flex; gap: 10px; flex-wrap: wrap; }
-.notify input { flex: 1 1 200px; min-width: 0; min-height: 52px; border-radius: 999px; border: 1px solid var(--lab-dim); background: var(--lab-bg); color: var(--lab-fg); padding: 0 20px; font: 400 1rem/1 var(--body); }
-.notify input::placeholder { color: var(--lab-soft); opacity: .8; }
+.notify input, .foot-news input { flex: 1 1 200px; min-width: 0; min-height: 52px; border-radius: 999px; border: 1px solid var(--lab-dim); background: var(--lab-bg); color: var(--lab-fg); padding: 0 20px; font: 400 1rem/1 var(--body); }
+.notify input::placeholder, .foot-news input::placeholder { color: var(--lab-soft); opacity: .8; }
 .notify .btn { background: var(--lab-fg); color: var(--lab-bg); }
 .notify-help { font-size: .84rem; color: var(--lab-soft); }
 .notify-msg { font-size: .92rem; color: var(--lab-fg); min-height: 1.4em; }
 
-.mock-note { padding-block: 28px 120px; font-size: .86rem; }
-.dir-a .mock-note, .dir-c .mock-note { color: var(--fg); }
-.dir-a .mock-note { background: var(--a-mineral); }
-.dir-b .mock-note { color: var(--b-soft); }
-.dir-c .mock-note { background: var(--c-red); }
+/* Founder (A, B) */
+.fd-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 56px; align-items: center; }
+.fd-photo { aspect-ratio: 4 / 5; max-width: 100%; border-radius: 22px; background: repeating-linear-gradient(135deg, var(--stripe) 0 2px, transparent 2px 14px), var(--g-bg); display: grid; place-items: center; text-align: center; padding: 20px; color: var(--muted); font-weight: 600; font-size: .95rem; }
+.fd-lead { margin-top: 20px; font-size: 1.12rem; max-width: 34em; }
+.fd-stats { margin-top: 32px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.fd-stats div { border-top: 2px solid var(--accent); padding-top: 14px; }
+.fd-stats strong { display: block; font-family: var(--display); font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 800; line-height: 1; letter-spacing: -.02em; }
+.dir-b .fd-stats strong { font-weight: 700; }
+.fd-stats span { display: block; margin-top: 8px; font-size: .92rem; color: var(--muted); }
+.fd-quote { margin-top: 28px; padding: 16px 18px; border: 1px dashed var(--card-line); border-radius: 14px; color: var(--muted); font-size: .92rem; }
 
-/* ---------- Presenter bar ---------- */
+/* Reviews placeholder */
+.rv-box { border: 1.5px dashed var(--card-line); border-radius: 22px; padding: 40px 28px; display: grid; gap: 10px; justify-items: center; text-align: center; }
+.rv-box svg { width: 40px; height: 40px; color: var(--accent); }
+.rv-box strong { font-size: 1.1rem; }
+.rv-box p { color: var(--muted); max-width: 38em; }
+
+/* FAQ */
+.faq-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 56px; align-items: start; }
+.faq-grid .acc { margin-top: 0; }
+.faq-grid summary { font-size: 1.06rem; padding: 20px 0; }
+
+/* Final CTA */
+.final { background: var(--final-bg); color: var(--final-fg); padding-block: 96px; }
+.final-grid { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 28px; }
+.final h2 { font-family: var(--display); font-weight: 800; font-size: clamp(2.4rem, 6vw, 4.8rem); line-height: .95; letter-spacing: -.035em; max-width: 11em; text-wrap: balance; }
+.dir-b .final h2 { font-weight: 700; font-size: clamp(2.1rem, 5vw, 4rem); }
+.dir-c .final h2 { font-weight: 900; font-stretch: 115%; letter-spacing: 0; }
+.final .btn { background: var(--final-btn-bg); color: var(--final-btn-fg); }
+.final-side { display: grid; gap: 12px; justify-items: start; }
+.final-side p { color: var(--final-soft); font-size: .95rem; }
+.final .ticks { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 10px 24px; font-size: .95rem; }
+.final .ticks svg { color: currentColor; }
+
+/* Footer */
+.foot { background: var(--foot-bg); color: var(--foot-fg); padding-block: 64px 32px; font-size: .95rem; }
+.foot-top { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, .7fr)); gap: 32px; }
+.foot .logo { width: 132px; color: var(--foot-fg); }
+.foot h3 { font-size: .9rem; font-weight: 600; color: var(--foot-soft); margin-bottom: 12px; }
+.foot ul { display: grid; gap: 8px; }
+.foot a { text-decoration: none; }
+.foot a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.foot-news { margin-top: 22px; display: grid; gap: 10px; max-width: 26rem; }
+.foot-news label { font-weight: 600; }
+.foot-news .notify-row input { border-color: var(--foot-line); background: transparent; color: var(--foot-fg); }
+.foot-news .btn { background: var(--foot-fg); color: var(--foot-bg); }
+.foot-bottom { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--foot-line); display: grid; gap: 8px; font-size: .84rem; color: var(--foot-soft); }
+.foot-bottom .mock { color: var(--foot-fg); }
+
+/* Sticky buy bar */
+.sticky-buy { position: fixed; left: 12px; right: 12px; bottom: calc(72px + env(safe-area-inset-bottom, 0px)); z-index: 30; max-width: 560px; margin-inline: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 10px 10px 18px; border-radius: 18px; background: var(--sticky-bg); color: var(--sticky-fg); box-shadow: 0 12px 30px rgba(0,0,0,.28); font-family: var(--body); transform: translateY(170%); visibility: hidden; transition: transform .35s var(--ease-out), visibility 0s linear .35s; }
+.sticky-buy.show { transform: translateY(0); visibility: visible; transition: transform .35s var(--ease-out), visibility 0s; }
+.sticky-info { min-width: 0; }
+.sticky-info strong { display: block; font-size: .98rem; }
+.sticky-info span { display: block; font-size: .84rem; opacity: .85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sticky-buy .btn { background: var(--sticky-btn-bg); color: var(--sticky-btn-fg); flex: none; }
+
+/* Toast */
+.toast { position: fixed; top: calc(14px + env(safe-area-inset-top, 0px)); left: 50%; z-index: 60; transform: translate(-50%, -160%); background: var(--p-bg); color: var(--p-fg); padding: 12px 18px; border-radius: 12px; font: 500 .95rem/1.35 var(--f-a-body); max-width: calc(100vw - 32px); box-shadow: 0 10px 30px rgba(0,0,0,.3); transition: transform .3s var(--ease-out); }
+.toast.show { transform: translate(-50%, 0); }
+
+/* Presenter */
 .presenter { position: fixed; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 40; display: flex; gap: 4px; padding: 5px; border-radius: 999px; background: var(--p-bg); color: var(--p-fg); box-shadow: 0 10px 34px rgba(0,0,0,.35); max-width: calc(100vw - 24px); font-family: var(--f-a-body); }
 .presenter button { display: inline-flex; align-items: center; gap: 8px; border: 0; background: none; color: var(--p-soft); font: 500 .9rem/1 var(--f-a-body); border-radius: 999px; padding: 0 16px; min-height: 42px; cursor: pointer; white-space: nowrap; }
 .presenter button b { font-weight: 700; color: var(--p-fg); }
@@ -303,32 +446,46 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
 @media (max-width: 620px) { .presenter .long { display: none; } .presenter .short { display: inline; } .presenter button { padding: 0 14px; } }
 
 /* ---------- Responsive ---------- */
+@media (max-width: 960px) {
+  .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .foot-top { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .foot-brand { grid-column: 1 / -1; }
+}
 @media (max-width: 900px) {
-  .hero-a-grid, .hero-b-grid, .hero-c-grid, .specs-grid, .lab-head, .reveal { grid-template-columns: minmax(0, 1fr); }
+  .hero-a-grid, .hero-c-grid, .lab-head, .reveal, .buy-grid, .tr-grid, .fd-grid, .faq-grid { grid-template-columns: minmax(0, 1fr); }
   .hero-a { padding-block: 16px 64px; }
   .hero-a-visual { padding: 64px 0 0 0; margin-top: 8px; }
   .gummy-a { right: -6px; top: 0; width: 132px; }
   .lot-head { padding-right: 118px; min-height: 64px; }
-  .hero-b-grid { grid-template-areas: "h" "m" "t"; row-gap: 8px; }
+  .hero-b-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "h" "m" "t"; row-gap: 8px; }
   .morph { max-width: 420px; margin-top: 8px; }
   .hero-c-grid { gap: 32px; }
-  .hero-c .buy { padding-bottom: 0; }
+  .hero-c .hero-proof { padding-bottom: 0; }
   .founder { margin-inline: -20px; }
   .photo-slot { border-radius: 0; min-height: 300px; }
   .steps { grid-template-columns: minmax(0, 1fr); gap: 36px; }
   .reveal { padding: 28px 22px; margin-top: 64px; }
-  .specs, .lab { padding-block: 64px; }
+  .sec, .lab { padding-block: 64px; }
+  .gallery { position: static; }
+  .buy-grid, .tr-grid, .fd-grid, .faq-grid { gap: 32px; }
+  .fd-photo { aspect-ratio: 16 / 11; }
+  .final { padding-block: 72px; }
 }
 @media (max-width: 520px) {
-  .spec-list > div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
   .lot-card { padding: 20px 18px 18px; }
   .lot-table td:first-child { font-size: .9rem; }
   .gummy-a { width: 112px; }
   .lot-head { padding-right: 96px; }
+  .why-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .buy-panel .ticks { grid-template-columns: minmax(0, 1fr); }
+  .plan { padding: 14px 14px; gap: 2px 12px; }
+  .plan-price small { max-width: 8.5em; margin-left: auto; }
+  .fd-stats { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .foot-top { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lookup { padding: 20px; }
 }
-
 @media (prefers-reduced-motion: reduce) {
-  .dir *, .dir *::before, .dir *::after { animation: none !important; transition: none !important; }
+  .dir *, .dir *::before, .dir *::after, .sticky-buy, .toast { animation: none !important; transition: none !important; }
   .scanline { display: none; }
   .js .step::after { transform: scaleX(1); }
 }
@@ -365,20 +522,21 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
       </g>
       <path d="M217.0 96.4L218.7 108.8L219.4 115.8L219.8 121.6L219.9 126.8L219.8 131.4L219.4 135.8L218.9 139.9L218.1 143.7L217.1 147.3L215.9 150.8L214.5 154.0L212.9 157.1L211.1 160.1L209.2 162.9L207.0 165.6L204.5 168.2L201.9 170.6L199.1 172.9L196.0 175.0L192.7 177.1L189.2 179.0L185.3 180.8L181.2 182.5L176.8 184.1L172.0 185.6L166.8 187.1L160.9 188.4L154.3 189.7L146.1 191.1L131.7 193.2L117.2 195.1L109.0 196.1L102.3 196.6L96.3 197.0L90.9 197.0L85.8 196.9L81.1 196.6L76.7 196.1L72.5 195.4L68.6 194.5L64.9 193.5L61.3 192.2L58.0 190.8L54.8 189.2L51.7 187.4L48.9 185.5L46.2 183.3L43.7 180.9L41.3 178.4L39.0 175.6L36.9 172.6L35.0 169.4L33.2 166.0L31.5 162.2L30.0 158.1L28.6 153.6L27.3 148.7L26.0 143.0L24.8 136.0L23.0 123.6L21.3 111.2L20.6 104.2L20.2 98.4L20.1 93.2L20.2 88.6L20.6 84.2L21.1 80.1L21.9 76.3L22.9 72.7L24.1 69.2L25.5 66.0L27.1 62.9L28.9 59.9L30.8 57.1L33.0 54.4L35.5 51.8L38.1 49.4L40.9 47.1L44.0 45.0L47.3 42.9L50.8 41.0L54.7 39.2L58.8 37.5L63.2 35.9L68.0 34.4L73.2 32.9L79.1 31.6L85.7 30.3L93.9 28.9L108.3 26.8L122.8 24.9L131.0 23.9L137.7 23.4L143.7 23.0L149.1 23.0L154.2 23.1L158.9 23.4L163.3 23.9L167.5 24.6L171.4 25.5L175.1 26.5L178.7 27.8L182.0 29.2L185.2 30.8L188.3 32.6L191.1 34.5L193.8 36.7L196.3 39.1L198.7 41.6L201.0 44.4L203.1 47.4L205.0 50.6L206.8 54.0L208.5 57.8L210.0 61.9L211.4 66.4L212.7 71.3L214.0 77.0L215.2 84.0Z" fill="none" stroke="url(#gRim)" stroke-width="2.5"/>
     </symbol>
+    <symbol id="i-check" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   </defs>
 </svg>
 
 <!-- ===================== A ===================== -->
 <div class="dir dir-a" id="dir-a" data-dir="a">
-  <div data-slot="head"></div>
-  <main id="main-a">
+  <div class="top">
+    <div data-slot="announce"></div>
+    <div data-slot="head"></div>
     <section class="hero-a" aria-labelledby="h-a">
       <div class="wrap hero-a-grid">
         <div class="hero-a-copy">
           <h1 class="h-a" id="h-a"><span>Chaque lot analysé.</span><span>Chaque résultat publié.</span></h1>
           <p class="lede"><strong>SK-01, c'est de la créatine monohydrate pure d'origine France, en gummies fondants aux fruits rouges.</strong> Sans sucre, vegan. Scanne le QR code de ton pot&nbsp;: l'analyse Eurofins de ton lot s'affiche.</p>
-          <div data-slot="buy"></div>
-          <a class="link-a" href="#">Voir un exemple d'analyse</a>
+          <div data-slot="cta"></div>
         </div>
         <div class="hero-a-visual">
           <svg class="gummy-a" viewBox="0 0 240 220" role="img" aria-label="Gummy SK-01 aux fruits rouges (visuel provisoire)"><use href="#gummy"/></svg>
@@ -390,10 +548,10 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
             <table class="lot-table">
               <thead><tr><th scope="col">Paramètre</th><th scope="col">Résultat</th><th scope="col"><span class="visually-hidden">Statut</span></th></tr></thead>
               <tbody>
-                <tr style="--i:0"><td>Créatine monohydrate, par gummy</td><td class="res"><span data-count="1.02" data-dec="2">1,02</span>&nbsp;g</td><td class="ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Conforme</td></tr>
-                <tr style="--i:1"><td>Sucres</td><td class="res">&lt;&nbsp;0,5&nbsp;g/100&nbsp;g</td><td class="ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Conforme</td></tr>
-                <tr style="--i:2"><td>Métaux lourds (plomb, cadmium, mercure, arsenic)</td><td class="res">Sous les seuils</td><td class="ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Conforme</td></tr>
-                <tr style="--i:3"><td>Microbiologie</td><td class="res">Sous les seuils</td><td class="ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Conforme</td></tr>
+                <tr style="--i:0"><td>Créatine monohydrate, par gummy</td><td class="res"><span data-count="1.02" data-dec="2">1,02</span>&nbsp;g</td><td class="ok"><svg aria-hidden="true"><use href="#i-check"/></svg>Conforme</td></tr>
+                <tr style="--i:1"><td>Sucres</td><td class="res">&lt;&nbsp;0,5&nbsp;g/100&nbsp;g</td><td class="ok"><svg aria-hidden="true"><use href="#i-check"/></svg>Conforme</td></tr>
+                <tr style="--i:2"><td>Métaux lourds (plomb, cadmium, mercure, arsenic)</td><td class="res">Sous les seuils</td><td class="ok"><svg aria-hidden="true"><use href="#i-check"/></svg>Conforme</td></tr>
+                <tr style="--i:3"><td>Microbiologie</td><td class="res">Sous les seuils</td><td class="ok"><svg aria-hidden="true"><use href="#i-check"/></svg>Conforme</td></tr>
               </tbody>
             </table>
             <footer class="lot-foot">
@@ -405,16 +563,16 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
         </div>
       </div>
     </section>
-    <div data-slot="specs"></div>
-    <div data-slot="lab"></div>
-  </main>
-  <p class="mock-note"><span class="wrap" style="display:block">Maquette A, Transparence radicale. Gummy et fiche de lot sont des visuels provisoires&nbsp;; les valeurs d'analyse sont des exemples.</span></p>
+  </div>
+  <main id="main-a" tabindex="-1" data-slot="body"></main>
+  <div data-slot="foot"></div>
 </div>
 
 <!-- ===================== B ===================== -->
 <div class="dir dir-b" id="dir-b" data-dir="b" hidden>
-  <div data-slot="head"></div>
-  <main id="main-b">
+  <div class="top">
+    <div data-slot="announce"></div>
+    <div data-slot="head"></div>
     <section class="hero-b" aria-labelledby="h-b">
       <div class="wrap hero-b-grid">
         <h1 class="h-b" id="h-b">La créatine a évolué.</h1>
@@ -431,29 +589,29 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
           <p class="morph-caption" aria-live="polite">Gummy SK-01, fruits rouges.</p>
         </div>
         <div class="hero-b-text">
-          <p class="lede">De la poudre à mélanger au gummy fondant aux fruits rouges. SK-01 t'apporte 1&nbsp;g de créatine monohydrate pure d'origine France par gummy. Sans sucre, vegan, et chaque lot est analysé.</p>
-          <div data-slot="buy"></div>
+          <p class="lede">De la poudre à mélanger au gummy fondant aux fruits rouges. SK-01 t'apporte 4&nbsp;g de créatine monohydrate pure d'origine France par jour, en 4 gummies. Sans sucre, vegan, et chaque lot est analysé.</p>
+          <div data-slot="cta"></div>
         </div>
       </div>
     </section>
-    <div data-slot="specs"></div>
-    <div data-slot="lab"></div>
-  </main>
-  <p class="mock-note"><span class="wrap" style="display:block">Maquette B, Matière vivante. Le gummy est un visuel provisoire, en attendant les photos du produit.</span></p>
+  </div>
+  <main id="main-b" tabindex="-1" data-slot="body"></main>
+  <div data-slot="foot"></div>
 </div>
 
 <!-- ===================== C ===================== -->
 <div class="dir dir-c" id="dir-c" data-dir="c" hidden>
-  <div data-slot="head"></div>
-  <main id="main-c">
+  <div class="top">
+    <div data-slot="announce"></div>
+    <div data-slot="head"></div>
     <section class="hero-c" aria-labelledby="h-c">
       <div class="wrap hero-c-grid">
         <div class="hero-c-copy">
           <h1 class="h-c" id="h-c"><span class="l" style="--i:0">Pensé sur</span><span class="l" style="--i:1">le tapis.</span><span class="l" style="--i:2">Formulé</span><span class="l" style="--i:3">au labo.</span></h1>
           <p class="lede">Adam Nabawy, ceinture noire de jiu-jitsu brésilien, a créé SK-01&nbsp;: de la créatine monohydrate pure d'origine France, en gummies aux fruits rouges. Sans sucre, vegan, et chaque lot est analysé.</p>
-          <div data-slot="buy"></div>
+          <div data-slot="cta"></div>
         </div>
-        <figure class="founder">
+        <figure class="founder" id="fondateur-c" tabindex="-1">
           <div class="photo-slot" role="img" aria-label="Emplacement de la photo d'Adam Nabawy"><span>Photo d'Adam Nabawy à venir</span></div>
           <figcaption>
             <p class="big5"><span class="n">5</span><span class="t">fois champion de France de jiu-jitsu brésilien</span></p>
@@ -467,11 +625,12 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
         </figure>
       </div>
     </section>
-    <div data-slot="specs"></div>
-    <div data-slot="lab"></div>
-  </main>
-  <p class="mock-note"><span class="wrap" style="display:block">Maquette C, Le geste du champion. La photo d'Adam Nabawy remplacera l'emplacement rayé.</span></p>
+  </div>
+  <main id="main-c" tabindex="-1" data-slot="body"></main>
+  <div data-slot="foot"></div>
 </div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <nav class="presenter" aria-label="Choisir une direction">
   <button type="button" data-go="a" aria-pressed="true"><b>A</b><span class="long">Transparence radicale</span><span class="short">Transparence</span></button>
@@ -483,42 +642,114 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
 (function () {
   "use strict";
   document.documentElement.classList.add("js");
-  var NB = " ", NNB = " ";
+  var NB = " ";
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   var LOGO = '<svg viewBox="188 240 1797 232" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" d="M 251.500 242.587 C 209.542 250.151, 186.236 277.243, 188.285 316.074 C 190.065 349.814, 210.363 371.347, 247.778 379.185 C 258.327 381.395, 260.003 381.440, 351.500 381.965 L 444.500 382.500 448.666 384.727 C 455.456 388.358, 457.500 392.141, 457.500 401.078 C 457.500 410.192, 454.694 414.861, 447.108 418.369 C 442.545 420.479, 441.731 420.503, 363 420.776 C 309.534 420.962, 281.863 420.704, 278.500 419.988 C 268.099 417.772, 263.122 412.167, 262.084 401.500 L 261.500 395.500 225.250 395.238 L 189 394.975 189.035 402.738 C 189.175 433.910, 205.357 456.268, 234.706 465.839 C 250.508 470.992, 253.486 471.104, 365.500 470.776 L 469.500 470.471 479.224 467.800 C 516.449 457.574, 536.687 427.939, 532.012 390.500 C 528.063 358.874, 508.266 338.750, 473.333 330.852 C 463.661 328.665, 461.972 328.619, 370 328.064 C 318.308 327.752, 275.606 327.099, 274.500 326.602 C 266.808 323.149, 263 317.657, 263 310.018 C 263 303.370, 264.897 299.054, 269.482 295.275 C 276.078 289.838, 275.033 289.895, 362.500 290.209 L 443.500 290.500 448.011 293.152 C 454.844 297.169, 457.244 302.262, 457.956 314.250 C 457.980 314.663, 473.975 315, 493.500 315 L 529 315 528.985 305.250 C 528.937 273.713, 511.288 253.001, 476.559 243.726 C 468.580 241.596, 467.456 241.572, 364 241.359 C 276.645 241.180, 258.187 241.381, 251.500 242.587 M 548.246 355.739 L 548.500 470.500 587 470.778 C 608.175 470.931, 626.513 470.810, 627.750 470.509 L 630 469.962 630 426.481 L 630 383 719.489 383 L 808.979 383 809.239 426.750 L 809.500 470.500 849.438 470.762 C 871.978 470.909, 889.766 470.634, 890.271 470.129 C 890.763 469.637, 891.165 465.919, 891.165 461.867 C 891.164 457.815, 891.127 406.462, 891.082 347.750 L 891 241 850 241 L 809 241 809 283.500 L 809 326 719.511 326 L 630.022 326 629.761 283.750 L 629.500 241.500 588.746 241.239 L 547.992 240.978 548.246 355.739 M 908.461 242.250 C 908.199 242.938, 908.101 294.575, 908.243 357 L 908.500 470.500 949 470.500 L 989.500 470.500 989.754 355.750 L 990.008 241 949.473 241 C 917.965 241, 908.831 241.278, 908.461 242.250 M 1008.365 242.500 C 1008.156 243.050, 1008.101 294.575, 1008.243 357 L 1008.500 470.500 1047.500 470.741 C 1068.950 470.874, 1087.118 470.588, 1087.873 470.106 C 1089.019 469.375, 1089.242 456.048, 1089.218 389.615 C 1089.202 345.827, 1089.552 310, 1089.995 310 C 1090.802 310, 1104.317 321.987, 1126 341.935 C 1132.325 347.754, 1151.437 365.336, 1168.471 381.007 C 1185.505 396.678, 1210.218 419.625, 1223.388 432 C 1254.988 461.690, 1257.548 463.891, 1264 466.919 L 1269.500 469.500 1315.500 469.742 L 1361.500 469.984 1357.500 466.306 C 1355.300 464.283, 1331.900 442.327, 1305.500 417.516 C 1279.100 392.705, 1243.978 359.827, 1227.452 344.453 C 1210.926 329.079, 1181.983 302.100, 1163.134 284.500 C 1126.671 250.453, 1121.711 246.678, 1109.237 243.482 C 1101.810 241.579, 1009.058 240.676, 1008.365 242.500 M 1256 294.335 L 1256 346.670 1288.938 378.335 C 1307.055 395.751, 1322.130 410, 1322.438 410 C 1322.747 410, 1323 372.200, 1323 326 L 1323 242 1289.500 242 L 1256 242 1256 294.335 M 1463 244.291 C 1454.030 247.382, 1453.498 247.746, 1408.499 281.529 C 1386.499 298.046, 1361.639 316.574, 1353.254 322.703 C 1344.869 328.832, 1336.319 335.247, 1334.254 336.958 L 1330.500 340.068 1381.500 339.784 C 1431.053 339.508, 1432.628 339.440, 1437 337.382 C 1441.749 335.147, 1450.040 329.271, 1504 289.896 C 1522.425 276.451, 1544.588 260.356, 1553.250 254.128 C 1561.912 247.900, 1569 242.623, 1569 242.402 C 1569 242.181, 1546.612 242.012, 1519.250 242.026 C 1470.360 242.051, 1469.388 242.090, 1463 244.291 M 1731.224 243.469 C 1726.358 244.989, 1722.771 247.099, 1718.629 250.879 C 1717.050 252.321, 1697.643 280.725, 1675.502 314 C 1653.362 347.275, 1620.839 395.960, 1603.229 422.189 C 1585.619 448.418, 1571.463 470.130, 1571.772 470.439 C 1572.546 471.213, 1634.945 471.147, 1649.646 470.357 L 1661.606 469.714 1674.973 448.357 L 1688.340 427 1777.043 427 L 1865.745 427 1879.659 448.750 L 1893.572 470.500 1938.786 470.760 C 1963.654 470.903, 1984 470.812, 1984 470.557 C 1984 470.044, 1937.326 399.775, 1877.279 309.885 C 1834.692 246.134, 1835.366 246.968, 1823.614 243.478 C 1816.708 241.427, 1737.787 241.420, 1731.224 243.469 M 1769.500 299.065 C 1766.929 299.823, 1764.010 303.990, 1749.073 328.225 C 1739.488 343.776, 1729.055 360.663, 1725.888 365.750 L 1720.131 375 1777.172 375 C 1824.245 375, 1834.125 374.767, 1833.703 373.669 C 1833.422 372.937, 1823.026 355.898, 1810.601 335.806 L 1788.009 299.273 1783.365 298.637 C 1777.434 297.824, 1773.275 297.952, 1769.500 299.065 M 1338.582 358.915 L 1330.664 359.500 1335.582 363.475 C 1349.036 374.350, 1387.844 407.462, 1417.415 433.298 C 1435.612 449.197, 1452.544 463.244, 1455.043 464.514 C 1465.779 469.972, 1466.613 470.040, 1519.469 469.760 L 1568.360 469.500 1556.046 459.500 C 1543.176 449.048, 1504.231 416.635, 1466.160 384.688 C 1444.876 366.828, 1438.930 362.680, 1431 360.161 C 1427.128 358.931, 1352.076 357.919, 1338.582 358.915"/></svg>';
+  var TICK = '<svg aria-hidden="true"><use href="#i-check"/></svg>';
+  var NAMES = { a: "Transparence radicale", b: "Matière vivante", c: "Le geste du champion" };
+
+  /* Offers. Pack prices are examples until Shinka confirms them. */
+  var PLANS = [
+    { id: "one", name: "1 pot", detail: "30 jours, achat unique", price: 39.99, days: 30 },
+    { id: "sub", name: "Abonnement mensuel", detail: "1 pot livré chaque mois, sans engagement", price: 34.90, days: 30, per: "par mois", tag: "5,09" + NB + "€ d'économie" },
+    { id: "p3", name: "Pack 3 mois", detail: "3 pots, 90 jours", price: 99.90, days: 90, each: 3 },
+    { id: "p6", name: "Pack 6 mois", detail: "6 pots, 180 jours", price: 179.90, days: 180, each: 6, tag: "Meilleur prix" }
+  ];
+  function eur(n) { return n.toFixed(2).replace(".", ",") + NB + "€"; }
+  function perDay(p) { return eur(Math.round(p.price / p.days * 100) / 100) + " par jour"; }
 
   /* ---------- Shared markup ---------- */
+  function announce() { return '<p class="announce">Chaque lot de SK-01 est analysé par Eurofins. Scanne le QR code, lis les résultats.</p>'; }
   function head(d) {
+    var found = "fondateur-" + d;
     return '<header class="site-head"><div class="wrap head-row">' +
       '<a class="logo" href="#" aria-label="Shinka, accueil">' + LOGO + '</a>' +
       '<button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-' + d + '">Menu</button>' +
       '<nav class="nav" id="nav-' + d + '" aria-label="Navigation principale"><ul>' +
-      '<li><a href="#">SK-01</a></li><li><a href="#">Shinka Lab</a></li><li><a href="#">Analyses de lots</a></li><li><a href="#">Fondateur</a></li>' +
-      '</ul></nav>' +
-      '<div class="head-actions"><a class="cart" href="#">Panier (0)</a><a class="btn btn-sm" href="#">Commander</a></div>' +
+      '<li><a href="#" data-scroll="acheter-' + d + '">SK-01</a></li><li><a href="#" data-scroll="lab-' + d + '">Shinka Lab</a></li>' +
+      '<li><a href="#" data-scroll="lot-' + d + '">Analyses de lots</a></li><li><a href="#" data-scroll="' + found + '">Fondateur</a></li>' +
+      '<li><a href="#" data-scroll="faq-' + d + '">FAQ</a></li></ul></nav>' +
+      '<div class="head-actions"><a class="cart" href="#">Panier (<span class="cart-n">0</span>)</a><a class="btn btn-sm" href="#" data-scroll="acheter-' + d + '">Commander</a></div>' +
       '</div></header>';
   }
-  function buy() {
-    return '<div class="buy"><a class="btn" href="#">Commander SK-01</a>' +
-      '<p class="price"><span class="p-main">39,99' + NB + '€</span>' +
-      '<span class="p-sub">le pot de 30 jours, ou 34,90' + NB + '€ en abonnement</span></p></div>';
+  function cta(d) {
+    return '<div class="hero-cta"><a class="btn" href="#" data-scroll="acheter-' + d + '">Choisir ma formule</a>' +
+      '<p class="price"><span class="p-main">Dès 1,00' + NB + '€ par jour</span>' +
+      '<span class="p-sub">avec le pack 6 mois, ou 34,90' + NB + '€ par mois en abonnement</span></p></div>' +
+      '<ul class="hero-proof"><li>' + TICK + '4' + NB + 'g de créatine par jour</li><li>' + TICK + 'Sans sucre, vegan</li><li>' + TICK + 'Lot analysé par Eurofins</li></ul>';
   }
-  function specs(d) {
-    var rows = [
-      ["Créatine", "Monohydrate pure, origine France"],
-      ["Dose", "4 gummies par jour, 1" + NB + "g de créatine par gummy"],
-      ["Pot", "120 gummies, soit 30 jours"],
-      ["Goût", "Fruits rouges, texture fondante"],
-      ["Sucre", "Sans sucre"],
-      ["Régime", "Vegan"],
-      ["Contrôle", "Chaque lot analysé par Eurofins, résultats publics"]
+  function buy(d) {
+    var plans = PLANS.map(function (p) {
+      var small = p.each ? eur(Math.round(p.price / p.each * 100) / 100) + " le pot" : perDay(p);
+      return '<label class="plan">' + (p.tag ? '<span class="plan-tag">' + p.tag + '</span>' : '') +
+        '<input type="radio" name="plan-' + d + '" value="' + p.id + '"' + (p.id === "sub" ? " checked" : "") + '>' +
+        '<span class="plan-name">' + p.name + '</span><span class="plan-detail">' + p.detail + (p.each ? ", " + perDay(p) : "") + '</span>' +
+        '<span class="plan-price">' + eur(p.price) + '<small>' + (p.per ? p.per + ", " + perDay(p) : small) + '</small></span></label>';
+    }).join("");
+    return '<section class="sec" id="acheter-' + d + '" tabindex="-1" aria-labelledby="buy-' + d + '"><div class="wrap buy-grid">' +
+      '<div class="gallery"><div class="g-main"><svg viewBox="0 0 240 220" role="img" aria-label="Gummy SK-01 (visuel provisoire)"><use href="#gummy"/></svg><span class="g-tag">Visuel provisoire</span></div>' +
+      '<ul class="g-thumbs"><li class="on"><svg viewBox="0 0 240 220" aria-hidden="true"><use href="#gummy"/></svg><span class="visually-hidden">Gummy</span></li><li>Photo du pot</li><li>4 gummies</li><li>QR code du lot</li></ul></div>' +
+      '<div class="buy-panel"><h2 class="buy-title" id="buy-' + d + '">SK-01</h2>' +
+      '<p class="buy-sub">Créatine en gummies, fruits rouges. 120 gummies, soit 30 jours.</p>' +
+      '<ul class="ticks"><li>' + TICK + '4' + NB + 'g de créatine par jour</li><li>' + TICK + 'Monohydrate pure, origine France</li><li>' + TICK + 'Sans sucre, vegan</li><li>' + TICK + 'Bioactif de nouvelle génération</li></ul>' +
+      '<form class="buy-form"><fieldset class="plans"><legend>Choisis ta formule</legend>' + plans + '</fieldset>' +
+      '<button class="btn add" type="submit">Ajouter au panier, <span class="add-price">34,90' + NB + '€</span></button></form>' +
+      '<p class="price-note">Prix des packs 3 et 6 mois donnés en exemple, à confirmer.</p>' +
+      '<ul class="ticks reassure"><li>' + TICK + 'Paiement sécurisé</li><li>' + TICK + 'Abonnement modifiable ou résiliable à tout moment</li><li>' + TICK + 'Analyse de ton lot en ligne, par QR code</li></ul>' +
+      '<div class="acc"><details><summary>Composition</summary><div class="acc-body"><p>Par gummy&nbsp;: 1' + NB + 'g de créatine monohydrate pure d\'origine France. SK-01 contient aussi un bioactif de nouvelle génération.</p><p>La liste complète des ingrédients, les valeurs nutritionnelles et les allergènes s\'afficheront ici, à partir de l\'étiquette.</p></div></details>' +
+      '<details><summary>Conseils d\'utilisation</summary><div class="acc-body"><p>4 gummies par jour, à croquer.</p><p>Ne pas dépasser la dose journalière recommandée. Un complément alimentaire ne remplace pas une alimentation variée et équilibrée ni un mode de vie sain. Tenir hors de portée des jeunes enfants.</p></div></details></div>' +
+      '</div></div></section>';
+  }
+  var ICONS = {
+    perf: '<svg class="why-ico" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M18 3 7 18h8l-2 11 12-16h-8l1-10z"/></svg>',
+    shaker: '<svg class="why-ico" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 9h12l-1.6 18h-8.8z"/><path d="M9 5h14v4H9z"/><path d="M5 5l22 22"/></svg>',
+    berry: '<svg class="why-ico" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="19" r="4.5"/><circle cx="20" cy="19" r="4.5"/><circle cx="16" cy="25" r="4.5"/><path d="M16 14c0-4 3-7 7-7 0 4-3 7-7 7z" stroke-linejoin="round"/></svg>',
+    leaf: '<svg class="why-ico" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 25C7 13 15 7 26 6c0 11-7 19-19 19z"/><path d="M7 25 18 14"/></svg>'
+  };
+  function why(d) {
+    var items = [
+      [ICONS.perf, "Performance physique", "La créatine augmente la performance physique lors d'exercices répétés de courte durée et de haute intensité. Effet obtenu avec 3" + NB + "g par jour&nbsp;; SK-01 en apporte 4" + NB + "g."],
+      [ICONS.shaker, "Zéro shaker", "4 gummies à croquer, à la salle comme au bureau. Pas de poudre à doser, pas de grumeaux."],
+      [ICONS.berry, "Fruits rouges, sans sucre", "Une texture fondante et un vrai goût de fruits rouges, sans sucre."],
+      [ICONS.leaf, "Pure et vegan", "De la créatine monohydrate pure d'origine France, dans une formule vegan."]
     ];
-    var dl = rows.map(function (r) { return "<div><dt>" + r[0] + "</dt><dd>" + r[1] + "</dd></div>"; }).join("");
-    return '<section class="specs" aria-labelledby="specs-' + d + '"><div class="wrap specs-grid">' +
-      '<div><h2 class="specs-title" id="specs-' + d + '">SK-01, en clair</h2>' +
-      '<p class="claim">La créatine augmente la performance physique lors d\'exercices répétés de courte durée et de haute intensité.</p>' +
-      '<p class="claim-note">Effet bénéfique obtenu par la consommation journalière de 3' + NB + 'g de créatine.</p></div>' +
-      '<dl class="spec-list">' + dl + '</dl></div></section>';
+    return '<section class="sec alt" aria-labelledby="why-' + d + '"><div class="wrap">' +
+      '<div class="sec-head"><h2 class="sec-title" id="why-' + d + '">La créatine, sans la poudre.</h2>' +
+      '<p class="sec-lead">Tout ce qu\'on attend d\'une créatine sérieuse, dans un format que tu prendras vraiment tous les jours.</p></div>' +
+      '<ul class="why-grid">' + items.map(function (it) { return '<li class="why-item">' + it[0] + '<h3>' + it[1] + '</h3><p>' + it[2] + '</p></li>'; }).join("") + '</ul></div></section>';
+  }
+  function compare(d) {
+    var rows = [
+      ["Préparation", "Shaker et eau", "Avec de l'eau", "Aucune"],
+      ["Prise", "Une dose à mesurer", "Plusieurs gélules", "4 gummies"],
+      ["Goût", "Neutre ou aromatisé", "Aucun", "Fruits rouges"],
+      ["Sucre", "Selon la marque", "Aucun", "Sans sucre"],
+      ["Analyse publiée pour chaque lot", "Rarement", "Rarement", "Oui, par QR code"],
+      ["Bioactif repéré par l'IA", "Non", "Non", "Oui"]
+    ];
+    var body = rows.map(function (r) { return '<tr><th scope="row">' + r[0] + '</th><td>' + r[1] + '</td><td>' + r[2] + '</td><td class="sk">' + r[3] + '</td></tr>'; }).join("");
+    return '<section class="sec" aria-labelledby="cmp-' + d + '"><div class="wrap">' +
+      '<div class="sec-head"><h2 class="sec-title" id="cmp-' + d + '">Poudre, gélules ou gummies&#8239;?</h2>' +
+      '<p class="sec-lead">La même créatine monohydrate, trois façons de la prendre.</p></div>' +
+      '<div class="cmp-wrap" role="region" aria-label="Tableau comparatif" tabindex="0"><table class="cmp"><thead><tr><td></td><th scope="col">Poudre classique</th><th scope="col">Gélules classiques</th><th scope="col" class="sk">SK-01</th></tr></thead><tbody>' + body + '</tbody></table></div></div></section>';
+  }
+  function resultCard() {
+    var rows = [["Créatine monohydrate, par gummy", "1,02" + NB + "g"], ["Sucres", "&lt;" + NB + "0,5" + NB + "g/100" + NB + "g"], ["Métaux lourds", "Sous les seuils"], ["Microbiologie", "Sous les seuils"]];
+    return '<div class="result"><div class="result-head"><p class="result-id">SK01-0001</p><span class="result-flag">Exemple</span></div>' +
+      '<table><tbody>' + rows.map(function (r) { return '<tr><td>' + r[0] + '</td><td><b>' + r[1] + '</b><span class="ok">' + TICK.replace('aria-hidden="true"', 'aria-hidden="true" width="14" height="14"') + 'Conforme</span></td></tr>'; }).join("") + '</tbody></table>' +
+      '<p class="result-note">Analyse Eurofins. Valeurs d\'exemple&nbsp;: les vrais résultats s\'afficheront dès le premier lot.</p></div>';
+  }
+  function lot(d) {
+    return '<section class="sec alt" id="lot-' + d + '" tabindex="-1" aria-labelledby="lotsec-' + d + '"><div class="wrap tr-grid">' +
+      '<div><div class="sec-head"><h2 class="sec-title" id="lotsec-' + d + '">Vérifie ton lot.</h2>' +
+      '<p class="sec-lead">Chaque lot de SK-01 est analysé par Eurofins, un laboratoire indépendant. Les résultats sont publics, et tu les lis en quelques secondes.</p></div>' +
+      '<ol class="tr-steps"><li><span class="tr-n" aria-hidden="true">1</span><div><h3>Scanne le QR code de ton pot</h3><p>Il se trouve sur l\'étiquette, à côté du numéro de lot.</p></div></li>' +
+      '<li><span class="tr-n" aria-hidden="true">2</span><div><h3>Retrouve ton lot</h3><p>La fiche de ton lot s\'ouvre directement. Tu peux aussi entrer le numéro à la main.</p></div></li>' +
+      '<li><span class="tr-n" aria-hidden="true">3</span><div><h3>Lis l\'analyse</h3><p>Teneur en créatine, sucres, métaux lourds, microbiologie&nbsp;: le rapport Eurofins complet, en PDF.</p></div></li></ol></div>' +
+      '<div class="lookup"><form class="lot-form" novalidate><label for="lotin-' + d + '">Numéro de lot</label>' +
+      '<div class="lookup-row"><input id="lotin-' + d + '" name="lot" value="SK01-0001" autocomplete="off" spellcheck="false" aria-describedby="lothelp-' + d + ' loterr-' + d + '"><button class="btn" type="submit">Voir l\'analyse</button></div>' +
+      '<p class="lookup-help" id="lothelp-' + d + '">Format SK01-0001, imprimé sous le QR code.</p><p class="lookup-err" id="loterr-' + d + '" role="alert"></p></form>' +
+      '<div class="result-slot">' + resultCard() + '</div></div></div></section>';
   }
   function lab(d) {
     var steps = [
@@ -526,74 +757,163 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
       ["La science valide.", "Les molécules les plus prometteuses sont testées en laboratoire, puis étudiées cliniquement."],
       ["Shinka formule.", "Pour chaque complément, on cherche le bioactif qui complète l'actif de référence. On ne l'intègre que s'il est étudié et documenté."]
     ];
-    var ol = steps.map(function (s, i) {
-      return '<li class="step" style="--i:' + i + '"><span class="step-n">0' + (i + 1) + '</span><h3>' + s[0] + '</h3><p>' + s[1] + '</p></li>';
-    }).join("");
-    return '<section class="lab" aria-labelledby="lab-' + d + '"><div class="wrap">' +
-      '<div class="lab-head"><h2 class="lab-title" id="lab-' + d + '">Shinka Lab</h2>' +
+    var ol = steps.map(function (s, i) { return '<li class="step" style="--i:' + i + '"><span class="step-n">0' + (i + 1) + '</span><h3>' + s[0] + '</h3><p>' + s[1] + '</p></li>'; }).join("");
+    return '<section class="lab" id="lab-' + d + '" tabindex="-1" aria-labelledby="labt-' + d + '"><div class="wrap">' +
+      '<div class="lab-head"><h2 class="lab-title" id="labt-' + d + '">Shinka Lab</h2>' +
       '<p class="lab-lead"><strong>Le futur des compléments ne s\'invente pas. Il se découvre.</strong> Voici comment on cherche les ingrédients de demain.</p></div>' +
       '<figure class="seq-fig"><div class="seq-frame"><canvas class="seq" aria-hidden="true"></canvas></div>' +
       '<figcaption>Illustration' + NB + ': des séquences de protéines végétales, parcourues par l\'IA à la recherche de molécules candidates.</figcaption></figure>' +
       '<ol class="steps">' + ol + '</ol>' +
-      '<div class="reveal"><div>' +
-      '<p class="reveal-title">SK-01 arrive avec un ingrédient que tu n\'as jamais vu.</p>' +
+      '<div class="reveal"><div><p class="reveal-title">SK-01 arrive avec un ingrédient que tu n\'as jamais vu.</p>' +
       '<p class="reveal-sub">Découvert par l\'IA. Étudié par la science. Révélé bientôt.</p>' +
       '<p class="bio"><span class="bio-label">Nom du bioactif</span><span class="scramble" aria-label="révélé bientôt">••••••••</span></p></div>' +
       '<form class="notify" novalidate><label for="mail-' + d + '">Sois prévenu le jour de la révélation</label>' +
       '<div class="notify-row"><input id="mail-' + d + '" name="email" type="email" autocomplete="email" placeholder="ton@email.fr" aria-describedby="help-' + d + ' msg-' + d + '">' +
       '<button class="btn" type="submit">Me prévenir</button></div>' +
       '<p class="notify-help" id="help-' + d + '">Un seul e-mail, le jour J.</p>' +
-      '<p class="notify-msg" id="msg-' + d + '" role="status" aria-live="polite"></p></form>' +
-      '</div></div></section>';
+      '<p class="notify-msg" id="msg-' + d + '" role="status" aria-live="polite"></p></form></div></div></section>';
+  }
+  function founder(d) {
+    return '<section class="sec" id="fondateur-' + d + '" tabindex="-1" aria-labelledby="fd-' + d + '"><div class="wrap fd-grid">' +
+      '<div class="fd-photo" role="img" aria-label="Emplacement de la photo d\'Adam Nabawy">Photo d\'Adam Nabawy à venir</div>' +
+      '<div><h2 class="sec-title" id="fd-' + d + '">Créé par un champion de France.</h2>' +
+      '<p class="fd-lead">Adam Nabawy, ceinture noire de jiu-jitsu brésilien, a fondé Shinka. SK-01 est le premier complément de la marque.</p>' +
+      '<div class="fd-stats"><div><strong>5 titres</strong><span>de champion de France de jiu-jitsu brésilien</span></div>' +
+      '<div><strong>Top 3</strong><span>des combattants français</span></div>' +
+      '<div><strong>Europe</strong><span>médaillé aux championnats, en ceinture noire</span></div></div>' +
+      '<p class="fd-quote">Emplacement pour une citation d\'Adam Nabawy sur la création de Shinka.</p></div></div></section>';
+  }
+  function reviews(d) {
+    return '<section class="sec alt" aria-labelledby="rv-' + d + '"><div class="wrap">' +
+      '<div class="sec-head"><h2 class="sec-title" id="rv-' + d + '">Avis clients</h2></div>' +
+      '<div class="rv-box"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M5 7h22v15H13l-6 5v-5H5z"/></svg>' +
+      '<strong>Les avis vérifiés s\'afficheront ici.</strong>' +
+      '<p>Ils seront collectés après chaque commande par une application d\'avis Shopify (Judge.me, par exemple). Sur le site en ligne, cette section reste masquée tant qu\'il n\'y a pas d\'avis réels.</p></div></div></section>';
+  }
+  function faq(d) {
+    var qs = [
+      ["Qu'est-ce que la créatine&#8239;?", "Une molécule que ton corps fabrique naturellement à partir d'acides aminés, et que l'on trouve aussi dans la viande et le poisson. Elle est stockée surtout dans les muscles."],
+      ["Combien de gummies par jour&#8239;?", "4 gummies par jour, soit 4" + NB + "g de créatine monohydrate. Ne dépasse pas la dose journalière recommandée."],
+      ["À quel moment les prendre&#8239;?", "Quand tu veux, avec ou sans repas. Le plus important est la régularité&nbsp;: prends-les chaque jour, y compris les jours sans entraînement."],
+      ["Faut-il faire une phase de charge&#8239;?", "Non. La dose quotidienne suffit, à condition de la prendre tous les jours sur la durée."],
+      ["Qu'est-ce que le bioactif de SK-01&#8239;?", "Un ingrédient de nouvelle génération, repéré grâce à l'IA puis étudié en laboratoire. Son nom sera révélé bientôt. Il figure dans la composition détaillée de SK-01, sur la fiche produit."],
+      ["Comment lire l'analyse de mon lot&#8239;?", "Scanne le QR code sur ton pot, ou entre ton numéro de lot sur la page Analyses de lots. Tu y trouves le rapport Eurofins complet de ton lot."],
+      ["Qui ne doit pas prendre SK-01&#8239;?", "SK-01 est déconseillé aux femmes enceintes ou allaitantes, aux enfants et aux adolescents. Si tu suis un traitement ou as un problème de santé, notamment rénal, demande l'avis de ton médecin."],
+      ["Puis-je modifier ou arrêter mon abonnement&#8239;?", "Oui, à tout moment depuis ton compte, sans frais."]
+    ];
+    return '<section class="sec" id="faq-' + d + '" tabindex="-1" aria-labelledby="faqt-' + d + '"><div class="wrap faq-grid">' +
+      '<div class="sec-head"><h2 class="sec-title" id="faqt-' + d + '">Tes questions sur la créatine</h2>' +
+      '<p class="sec-lead">Une autre question&#8239;? Écris-nous à contact@getshinka.com.</p></div>' +
+      '<div class="acc">' + qs.map(function (q) { return '<details><summary>' + q[0] + '</summary><div class="acc-body"><p>' + q[1] + '</p></div></details>'; }).join("") + '</div></div></section>';
+  }
+  var FINAL = { a: "Ta créatine, vérifiée lot par lot.", b: "Passe à la créatine qui a évolué.", c: "Du tapis à ton sac de sport." };
+  function final(d) {
+    return '<section class="final" aria-labelledby="fin-' + d + '"><div class="wrap"><div class="final-grid">' +
+      '<h2 id="fin-' + d + '">' + FINAL[d] + '</h2>' +
+      '<div class="final-side"><a class="btn" href="#" data-scroll="acheter-' + d + '">Choisir ma formule</a><p>Dès 1,00' + NB + '€ par jour avec le pack 6 mois.</p></div></div>' +
+      '<ul class="ticks"><li>' + TICK + 'Paiement sécurisé</li><li>' + TICK + 'Abonnement sans engagement</li><li>' + TICK + 'Chaque lot analysé par Eurofins</li></ul></div></section>';
+  }
+  function foot(d) {
+    return '<footer class="foot"><div class="wrap"><div class="foot-top">' +
+      '<div class="foot-brand"><a class="logo" href="#" aria-label="Shinka, accueil">' + LOGO + '</a>' +
+      '<form class="foot-news notify" novalidate><label for="news-' + d + '">Les nouveautés Shinka, une fois par mois</label>' +
+      '<div class="notify-row"><input id="news-' + d + '" type="email" autocomplete="email" placeholder="ton@email.fr" aria-describedby="newsmsg-' + d + '"><button class="btn" type="submit">M\'inscrire</button></div>' +
+      '<p class="notify-msg" id="newsmsg-' + d + '" role="status" aria-live="polite"></p></form></div>' +
+      '<div><h3>Boutique</h3><ul><li><a href="#" data-scroll="acheter-' + d + '">SK-01</a></li><li><a href="#" data-scroll="acheter-' + d + '">Packs et abonnement</a></li><li><a href="#">Gérer mon abonnement</a></li></ul></div>' +
+      '<div><h3>Shinka</h3><ul><li><a href="#" data-scroll="lab-' + d + '">Shinka Lab</a></li><li><a href="#" data-scroll="lot-' + d + '">Analyses de lots</a></li><li><a href="#" data-scroll="fondateur-' + d + '">Fondateur</a></li><li><a href="#" data-scroll="faq-' + d + '">FAQ</a></li></ul></div>' +
+      '<div><h3>Aide et légal</h3><ul><li>contact@getshinka.com</li><li><a href="#">Livraison et retours</a></li><li><a href="#">Mentions légales</a></li><li><a href="#">CGV</a></li><li><a href="#">Confidentialité</a></li></ul></div></div>' +
+      '<div class="foot-bottom"><p>© 2026 Shinka. SK-01 est un complément alimentaire.</p>' +
+      '<p class="mock">Maquette ' + d.toUpperCase() + ', ' + NAMES[d] + '. Visuels produit, valeurs d\'analyse et prix des packs sont provisoires.</p></div></div></footer>' +
+      '<div class="sticky-buy" aria-label="Commander SK-01"><div class="sticky-info"><strong>SK-01</strong><span class="sticky-plan">Abonnement mensuel, 34,90' + NB + '€</span></div>' +
+      '<a class="btn btn-sm" href="#" data-scroll="acheter-' + d + '">Commander</a></div>';
   }
 
   var dirs = {};
   ["a", "b", "c"].forEach(function (d) {
     var root = document.getElementById("dir-" + d);
+    root.querySelector('[data-slot="announce"]').outerHTML = announce();
     root.querySelector('[data-slot="head"]').outerHTML = head(d);
-    root.querySelector('[data-slot="buy"]').outerHTML = buy();
-    root.querySelector('[data-slot="specs"]').outerHTML = specs(d);
-    root.querySelector('[data-slot="lab"]').outerHTML = lab(d);
-    dirs[d] = { root: root, anims: [] };
+    root.querySelector('[data-slot="cta"]').outerHTML = cta(d);
+    root.querySelector('[data-slot="body"]').innerHTML = buy(d) + why(d) + compare(d) + lot(d) + lab(d) + (d === "c" ? "" : founder(d)) + reviews(d) + faq(d) + final(d);
+    root.querySelector('[data-slot="body"]').removeAttribute("data-slot");
+    root.querySelector('[data-slot="foot"]').outerHTML = foot(d);
+    dirs[d] = { root: root, anims: [], cart: 0 };
   });
 
-  /* ---------- Small interactions ---------- */
+  /* ---------- Toast ---------- */
+  var toastEl = document.getElementById("toast"), toastT;
+  function toast(msg) { toastEl.textContent = msg; toastEl.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(function () { toastEl.classList.remove("show"); }, 3200); }
+
+  /* ---------- Clicks: nav, menu, smooth scroll ---------- */
   document.addEventListener("click", function (e) {
+    var s = e.target.closest("[data-scroll]");
+    if (s) {
+      e.preventDefault();
+      var t = document.getElementById(s.dataset.scroll);
+      if (t) { t.scrollIntoView({ behavior: reduce.matches ? "auto" : "smooth", block: "start" }); t.focus({ preventScroll: true }); }
+      var open = document.querySelector(".nav.open"); if (open) { open.classList.remove("open"); var b = document.querySelector('[aria-controls="' + open.id + '"]'); if (b) b.setAttribute("aria-expanded", "false"); }
+      return;
+    }
     var a = e.target.closest('.dir a[href="#"]');
     if (a) e.preventDefault();
     var m = e.target.closest(".menu-btn");
     if (m) {
       var nav = document.getElementById(m.getAttribute("aria-controls"));
-      var open = !nav.classList.contains("open");
-      nav.classList.toggle("open", open);
-      m.setAttribute("aria-expanded", String(open));
+      var o = !nav.classList.contains("open");
+      nav.classList.toggle("open", o);
+      m.setAttribute("aria-expanded", String(o));
     }
-  });
-  document.addEventListener("submit", function (e) {
-    var f = e.target.closest(".notify");
-    if (!f) return;
-    e.preventDefault();
-    var input = f.querySelector("input"), msg = f.querySelector(".notify-msg");
-    var v = input.value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
-      input.setAttribute("aria-invalid", "true");
-      msg.textContent = "Entre une adresse e-mail complète, par exemple ton@email.fr.";
-      input.focus();
-      return;
-    }
-    input.removeAttribute("aria-invalid");
-    msg.textContent = "C'est noté. Sur le vrai site, cette adresse rejoindra ta liste Shopify (ici, rien n'est envoyé).";
   });
 
-  /* ---------- Seeded random ---------- */
+  /* ---------- Plans and cart ---------- */
+  function planOf(root) { var c = root.querySelector('.plans input:checked'); return PLANS.filter(function (p) { return p.id === (c && c.value); })[0] || PLANS[1]; }
+  function syncPlan(root) {
+    var p = planOf(root);
+    root.querySelector(".add-price").textContent = eur(p.price);
+    root.querySelector(".sticky-plan").textContent = p.name + ", " + eur(p.price);
+  }
+  document.addEventListener("change", function (e) { if (e.target.matches(".plans input")) syncPlan(e.target.closest(".dir")); });
+
+  /* ---------- Forms ---------- */
+  var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  document.addEventListener("submit", function (e) {
+    var f = e.target, root = f.closest(".dir");
+    e.preventDefault();
+    if (f.matches(".buy-form")) {
+      var d = root.dataset.dir, p = planOf(root);
+      dirs[d].cart += 1;
+      root.querySelectorAll(".cart-n").forEach(function (n) { n.textContent = dirs[d].cart; });
+      toast("SK-01 ajouté au panier (" + p.name.toLowerCase() + ", " + eur(p.price) + ").");
+      return;
+    }
+    if (f.matches(".lot-form")) {
+      var input = f.querySelector("input"), err = f.querySelector(".lookup-err"), slot = f.parentNode.querySelector(".result-slot");
+      var v = input.value.trim().toUpperCase().replace(/\s+/g, "");
+      if (!/^SK01-\d{4}$/.test(v)) {
+        input.setAttribute("aria-invalid", "true");
+        err.textContent = "Ce numéro n'a pas le bon format. Il s'écrit comme SK01-0001, sous le QR code de ton pot.";
+        slot.innerHTML = ""; input.focus(); return;
+      }
+      input.removeAttribute("aria-invalid"); err.textContent = "";
+      slot.innerHTML = resultCard().replace(">SK01-0001<", ">" + v + "<");
+      return;
+    }
+    if (f.matches(".notify")) {
+      var inp = f.querySelector("input"), msg = f.querySelector(".notify-msg"), val = inp.value.trim();
+      if (!EMAIL.test(val)) { inp.setAttribute("aria-invalid", "true"); msg.textContent = "Entre une adresse e-mail complète, par exemple ton@email.fr."; inp.focus(); return; }
+      inp.removeAttribute("aria-invalid");
+      msg.textContent = "C'est noté. Sur le site en ligne, cette adresse rejoindra ta liste Shopify (ici, rien n'est envoyé).";
+    }
+  });
+
+  /* ---------- Seeded random + helpers ---------- */
   function rng(seed) { var s = seed >>> 0; return function () { s = (s + 0x6D2B79F5) >>> 0; var t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
   function cssVar(el, name) { return getComputedStyle(el).getPropertyValue(name).trim(); }
 
   /* ---------- Pseudo QR (decorative, not scannable) ---------- */
   function drawQR(canvas, color) {
     var ctx = canvas.getContext("2d"), n = 29, m = 3, r = rng(20260929);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = color;
+    ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = color;
     function finder(x, y) { ctx.fillRect(x * m, y * m, 7 * m, 7 * m); ctx.clearRect((x + 1) * m, (y + 1) * m, 5 * m, 5 * m); ctx.fillRect((x + 2) * m, (y + 2) * m, 3 * m, 3 * m); }
     for (var y = 0; y < n; y++) for (var x = 0; x < n; x++) {
       var inF = (x < 8 && y < 8) || (x > n - 9 && y < 8) || (x < 8 && y > n - 9);
@@ -606,11 +926,11 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
   var AA = "ACDEFGHIKLMNPQRSTVWY";
   function SeqField(canvas, root) {
     var ctx = canvas.getContext("2d"), W = 0, H = 0, dpr = 1, rows = [], cw, ch, fs, L = 0;
-    var raf = 0, running = false, t0 = 0, cands = [], nextCand = 0, R = rng(7);
-    var col = { dim: cssVar(root, "--lab-dim"), fg: cssVar(root, "--lab-soft"), acc: cssVar(root, "--lab-accent"), bg: cssVar(root, "--lab-bg") };
+    var raf = 0, running = false, t0 = 0, cands = [], nextCand = 0, R = rng(7), col;
+    function readCols() { col = { dim: cssVar(root, "--lab-dim"), fg: cssVar(root, "--lab-soft"), acc: cssVar(root, "--lab-accent"), bg: cssVar(root, "--lab-bg"), font: cssVar(root, "--f-mono") }; }
     function strip(seq, color) {
       var c = document.createElement("canvas"); c.width = Math.ceil(L * dpr); c.height = Math.ceil(ch * dpr);
-      var x = c.getContext("2d"); x.scale(dpr, dpr); x.fillStyle = color; x.font = "500 " + fs + "px " + cssVar(root, "--f-mono"); x.textBaseline = "middle";
+      var x = c.getContext("2d"); x.scale(dpr, dpr); x.fillStyle = color; x.font = "500 " + fs + "px " + col.font; x.textBaseline = "middle";
       for (var i = 0; i < seq.length; i++) x.fillText(seq[i], i * cw + cw * .2, ch / 2);
       return c;
     }
@@ -628,9 +948,8 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
       return true;
     }
     function spawn(now, bx) {
-      var ri = Math.floor(R() * rows.length), row = rows[ri], len = 7 + Math.floor(R() * 5);
-      var screenCol = Math.max(0, Math.floor((bx - 20) / cw));
-      var sc = ((Math.floor((screenCol * cw + row.off) / cw)) % (L / cw) + (L / cw)) % (L / cw);
+      var ri = Math.floor(R() * rows.length), row = rows[ri], len = 7 + Math.floor(R() * 5), ncol = L / cw;
+      var sc = ((Math.floor((Math.max(0, bx - 20) + row.off) / cw)) % ncol + ncol) % ncol;
       cands.push({ ri: ri, c: Math.floor(sc), len: len, born: now });
       if (cands.length > 4) cands.shift();
     }
@@ -649,7 +968,7 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
       ctx.fillStyle = col.acc; ctx.fillRect(bx - 1, 0, 2, H);
       ctx.restore();
       if (!still && now > nextCand && bx > 40 && bx < W - 40) { spawn(now, bx); nextCand = now + 1400 + R() * 900; }
-      ctx.font = "500 " + fs + "px " + cssVar(root, "--f-mono"); ctx.textBaseline = "middle";
+      ctx.font = "500 " + fs + "px " + col.font; ctx.textBaseline = "middle";
       cands.forEach(function (c) {
         var age = still ? 1 : (now - c.born) / 1000, a = still ? 1 : Math.min(1, age * 3) * Math.max(0, Math.min(1, (3.4 - age) / .6));
         if (a <= 0) return; var row = rows[c.ri]; if (!row) return;
@@ -665,11 +984,11 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
     function loop(now) { frame(now, false); if (running) raf = requestAnimationFrame(loop); }
     function still() { cands = [{ ri: 2, c: 6, len: 9, born: 0 }, { ri: Math.max(3, rows.length - 4), c: 30, len: 8, born: 0 }]; frame(performance.now(), true); }
     var visible = false, active = false;
-    function sync() { var go = visible && active && !reduce.matches; if (go && !running) { running = true; raf = requestAnimationFrame(loop); } if (!go) { running = false; cancelAnimationFrame(raf); if (reduce.matches && active) still(); } }
+    function sync() { var go = visible && active && !reduce.matches; if (go && !running) { running = true; raf = requestAnimationFrame(loop); } if (!go) { running = false; cancelAnimationFrame(raf); } }
     new IntersectionObserver(function (es) { visible = es[0].isIntersecting; sync(); }).observe(canvas);
-    var rt; window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { if (active && build()) { cands = []; frame(performance.now(), !running); } }, 150); });
+    var rt; window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { if (active && build()) { cands = []; if (!running) still(); } }, 150); });
     return {
-      start: function () { active = true; col = { dim: cssVar(root, "--lab-dim"), fg: cssVar(root, "--lab-soft"), acc: cssVar(root, "--lab-accent"), bg: cssVar(root, "--lab-bg") }; if (build()) { still(); cands = []; if (reduce.matches) still(); } sync(); },
+      start: function () { active = true; readCols(); if (build()) still(); if (!reduce.matches) cands = []; sync(); },
       stop: function () { active = false; sync(); }
     };
   }
@@ -780,36 +1099,38 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
     (function tick(now) { var p = Math.max(0, Math.min(1, (now - start) / dur)), v = to * (1 - Math.pow(1 - p, 3)); el.textContent = v.toFixed(dec).replace(".", ","); if (p < 1) requestAnimationFrame(tick); })(performance.now());
   }
 
+  /* ---------- Sticky buy bar: shown once past the hero, hidden over the buy box ---------- */
+  function StickyBar(root) {
+    var bar = root.querySelector(".sticky-buy"), hero = root.querySelector(".top"), box = root.querySelector('[id^="acheter-"]'), heroIn = true, boxIn = false, active = false;
+    function sync() { bar.classList.toggle("show", active && !heroIn && !boxIn); }
+    new IntersectionObserver(function (es) { heroIn = es[0].isIntersecting; sync(); }).observe(hero);
+    new IntersectionObserver(function (es) { boxIn = es[0].isIntersecting; sync(); }, { threshold: .15 }).observe(box);
+    return { start: function () { active = true; sync(); }, stop: function () { active = false; sync(); } };
+  }
+
   /* ---------- Wire each direction ---------- */
   var A = dirs.a.root, B = dirs.b.root, C = dirs.c.root;
   drawQR(A.querySelector(".qr"), cssVar(A, "--a-ink"));
   ["a", "b", "c"].forEach(function (d) {
-    var root = dirs[d].root, seq = SeqField(root.querySelector(".seq"), root);
-    dirs[d].anims.push(seq, Scramble(root.querySelector(".scramble")));
+    var root = dirs[d].root;
+    dirs[d].anims.push(SeqField(root.querySelector(".seq"), root), Scramble(root.querySelector(".scramble")), StickyBar(root));
+    syncPlan(root);
   });
   dirs.b.anims.push(Morph(B));
-  dirs.a.anims.push({
-    start: function () { var card = A.querySelector(".lot-card"); card.classList.remove("run"); void card.offsetWidth; card.classList.add("run"); countUp(A.querySelector("[data-count]")); },
-    stop: function () {}
-  });
-  dirs.c.anims.push({
-    start: function () { var h = C.querySelector(".h-c"); h.classList.remove("run"); void h.offsetWidth; h.classList.add("run"); },
-    stop: function () {}
-  });
+  dirs.a.anims.push({ start: function () { var card = A.querySelector(".lot-card"); card.classList.remove("run"); void card.offsetWidth; card.classList.add("run"); countUp(A.querySelector("[data-count]")); }, stop: function () {} });
+  dirs.c.anims.push({ start: function () { var h = C.querySelector(".h-c"); h.classList.remove("run"); void h.offsetWidth; h.classList.add("run"); }, stop: function () {} });
 
-  /* Steps light up as they come into view (content is visible either way) */
   var so = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("on"); so.unobserve(e.target); } }); }, { threshold: .4 });
   document.querySelectorAll(".step").forEach(function (s) { so.observe(s); });
 
-  /* Gentle parallax on A's gummy */
-  var gA = A.querySelector(".gummy-a"), ticking = false;
+  var current = null, gA = A.querySelector(".gummy-a"), ticking = false;
   window.addEventListener("scroll", function () {
     if (reduce.matches || current !== "a" || ticking) return; ticking = true;
     requestAnimationFrame(function () { var y = Math.min(window.scrollY, 600); gA.style.transform = "translateY(" + (y * -.12).toFixed(1) + "px) rotate(" + (y * .02).toFixed(2) + "deg)"; ticking = false; });
   }, { passive: true });
 
   /* ---------- Presenter ---------- */
-  var current = null, pbtns = [].slice.call(document.querySelectorAll(".presenter button")), skip = document.getElementById("skip");
+  var pbtns = [].slice.call(document.querySelectorAll(".presenter button")), skip = document.getElementById("skip");
   function show(d, fromHash) {
     if (!dirs[d] || d === current) return;
     if (current) dirs[current].anims.forEach(function (a) { a.stop(); });
@@ -824,8 +1145,8 @@ body { background: var(--page, var(--a-mineral)); color: var(--a-ink); margin: 0
   pbtns.forEach(function (b) { b.addEventListener("click", function () { show(b.dataset.go); }); });
   window.addEventListener("hashchange", function () { var h = location.hash.slice(1); if (dirs[h]) show(h, true); });
   var h0 = location.hash.slice(1);
-  var go = function () { show(dirs[h0] ? h0 : "a", true); };
-  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(go); setTimeout(function () { if (!current) go(); }, 1200); } else go();
+  var go = function () { if (!current) show(dirs[h0] ? h0 : "a", true); };
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(go); setTimeout(go, 1200); } else go();
 })();
 </script>
 
